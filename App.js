@@ -1,30 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-//view가 컨테이너 / span p h1 쓸수 없음 모두 text
+import React from "react";
+import { View } from "react-native";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Hello!</Text>
-      <StatusBar style="black" />
-      {/* 시계 배터리 와이파이 ios 안드로이드 상태바 화면에 표시되지 않음*/}
+    <View style={{ flex : 1 }}>
+      <View style={{ flex: 1, backgroundColor:"tomato"}}></View>
+      <View style={{ flex: 5, backgroundColor:"teal"}}></View>
+      <View style={{ flex: 1, backgroundColor:"orange"}}></View>
     </View>
   );
 }
-
-// StyleSheet.create 자동 완성 기능을 제공함
-const styles = StyleSheet.create({
-  //클라스 네임처럼 쓰면됨
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 28,
-    color: 'black',
-  }
-});
-
-//컴포턴트 : 화면에 렌더링 / api : 자바스크립트 코드
+//display : flex 를 외칠 필요가 없음 디렉션 기본값 column
+//너비와 높이를 기반으로 하여 박스를 만들지 않아야함! 반응형으로 만들어야함
+//부모에 플렉스 1 주고 자식에 플렉스 퍼센트 줘서 레이아웃 나누기
