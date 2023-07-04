@@ -15,4 +15,8 @@ ScrollView : 다양한 가로 세로 스크롤뷰 효과 pagingEnabled 에이블
              showsHorizontalScrollIndicator 가로 스코롤 없애기 / 뷰 태그 옆에 써주면 됨<br>
 expo location : 리액트 useState, useEffect import 하여 location api 자바스크립트 짜기<br>
                                                            
-4 commit ///
+4 commit /// ActivityIndicator : 로딩 아이콘 가져와보기<br>
+의미 없는 삽질은 없으리 ... There was a problem sending log messages to your development environment<br>
+[PrettyFormatPluginError: undefined is not a function] 에러 때문에 .. 몇시간 동안 막혀 있었다 ...<br>
+expo의 로케이션과 open weather api key를 끌어와 자바스크립트 코드를 짰는데 구현이 안된다..<br>
+배열의 문제인것 같아서 내일 꼭 해결하고 만다 !!!!!!!
