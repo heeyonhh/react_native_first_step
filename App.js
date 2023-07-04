@@ -2,21 +2,33 @@ import * as Location from 'expo-location';
 import { StatusBar } from "expo-status-bar";
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, Dimensions, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Dimensions,
+  ActivityIndicator,
+  StyleSheet,
+  ScrollView
+} from "react-native";
 
 //Dimensions width 반응형으로 스크린 크기 얻기
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
+const API_KEY = "e80e1a373d720e9d26eb27b69a726412";
+//어플리케이션에 api key 두면 안됌!
+  
 // console.log(SCREEN_WIDTH);
 
 export default function App() {
   const [city, setCity] = useState("Loading...");
-  const [location, setLocation] = useState();
+  const [days, setDays] = useState([]);
+  // const [location, setLocation] = useState();
   const [ok, setOk] = useState(true);
-  const ask = async() => {
+  const getWeather = async() => {
     // const permission = await Location.requestForegroundPermissionsAsync();
     // console.log(permission);
-    const {granted} = await Location.requestForegroundPermissionsAsync();
+    const {granted} = await Location.
+    requestForegroundPermissionsAsync();
     if(!granted){
       setOk(false);
     }
@@ -27,13 +39,18 @@ export default function App() {
       coords : { latitude, longitude },
      } = await Location.getCurrentPositionAsync({ accuracy: 5 });
     const location = await Location.reverseGeocodeAsync(
-      { latitude, longitude}, {useGoogleMaps:false}
-    );
+      { latitude, longitude }, 
+      { useGoogleMaps:false });
     setCity(location[0].city);
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&exclude=alerts&appid=${API_KEY}&units=metric`);
+
+    const json = await response.json();
+    setDays(json.daily);
   };
+
   useEffect(() => {
-    ask();
-  }, [])
+    getWeather();
+  }, []);
   return (
       <View style={styles.container}>
         <StatusBar style="black" />
@@ -51,22 +68,25 @@ export default function App() {
           // 가로스코롤 없애기
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.weather}>
-          <View style={styles.day}>
-            <Text style={styles.temp}>27</Text>
-            <Text style={styles.description}>Sunny</Text>
-          </View>
-          <View style={styles.day}>
-            <Text style={styles.temp}>27</Text>
-            <Text style={styles.description}>Sunny</Text>
-          </View>
-          <View style={styles.day}>
-            <Text style={styles.temp}>27</Text>
-            <Text style={styles.description}>Sunny</Text>
-          </View>
-          <View style={styles.day}>
-            <Text style={styles.temp}>27</Text>
-            <Text style={styles.description}>Sunny</Text>
-          </View>
+          { days?.length === 0 ? (
+            <View style={styles.day}>
+              <ActivityIndicator
+                color="white"
+                style={{marginTop: 10 }}
+                size="large"
+              />
+            </View>
+            ) : (
+              days?.map((day, index) =>
+              <View key={index} style={styles.day}>
+                <Text style={styles.temp}>
+                  {parseFloat(day.temp.day).toFixed(1)}
+                </Text>
+                <Text style={styles.description}>{day.weather[0].main}</Text>
+                <Text style={styles.tinyText}>{day.weather[0].description}</Text>
+              </View>
+              )
+            )}
         </ScrollView>
       </View>
   );
@@ -88,9 +108,7 @@ const styles = StyleSheet.create({
   },
 
   //scorllView는 플렉스 사용 x
-  weather: {
 
-  },
   day: {
     width: SCREEN_WIDTH,
     alignItems: "center",
@@ -102,5 +120,8 @@ const styles = StyleSheet.create({
   description: {
     marginTop: -30,
     fontSize: 60,
+  },
+  tinyText: {
+    fontSize: 20,
   },
 });
