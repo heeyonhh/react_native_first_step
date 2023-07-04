@@ -7,7 +7,7 @@ span, p, h1 -> text, container -> view 태그로 써야함<br>
 <br>
 3 commit /// flex box로 레이아웃 주기, 반응형으로 레이아웃 짜야하기 때문에 레이아웃에 위드 헤이트 사용 안함<br>
 flexDirection 기본 css와 다르게 column임!<br>
-부모 View에 flex : 1 (100%)를 주고 자식 View에 flex : 1, 9를 주어 퍼센트를 나눈다.<br>
+부모 View에 flex : 1 (100%)를 주고 자식 View에 flex : 1, 2를 주어 퍼센트를 나눈다.<br>
 <br>
 0704 /// react native styles 익히기<br>
 Dimensions : width 반응형으로 window, screen width로 크기 지정 / 가로 스코롤 플렉스 사용 x<br>
