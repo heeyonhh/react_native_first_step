@@ -24,6 +24,6 @@ Dimensions : width 반응형으로 window, screen width로 크기 지정 / 가�
 
 ScrollView : 다양한 가로 세로 스크롤뷰 효과 pagingEnabled 에이블 효과, indicatorStyle 스코롤바 색깔
 
-             showsHorizontalScrollIndicator 가로 스코롤 없애기 / 뷰 태그 옆에 써주면 됨
+showsHorizontalScrollIndicator 가로 스코롤 없애기 / 뷰 태그 옆에 써주면 됨
              
 expo location : 리액트 useState, useEffect import 하여 location api 자바스크립트 짜기
